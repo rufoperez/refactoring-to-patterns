@@ -19,20 +19,42 @@ namespace RefactoringToPatterns.ComposeMethod
         }
 
         public void Add(Object element) {
-            if(!_readOnly) {
-                int newSize = _size + 1;
-
-                if(newSize > _elements.Length) {
-                    Object[] newElements = new Object[_elements.Length + 10];
-
-                    for (int i = 0; i < _size; i++)
-                        newElements[i] = _elements[i];
-
-                    _elements = newElements;
-                }
-
-                _elements[_size++] = element;
+            if(!IsReadOnly())
+            {
+                AddNewElement(element);
             }
+        }
+
+        private bool IsReadOnly()
+        {
+            return _readOnly;
+        }
+
+        private void AddNewElement(object element)
+        {
+            if (CheckListIsFull())
+            {
+                AddNewPositionsToList();
+            }
+
+            _elements[_size++] = element;
+        }
+
+        private bool CheckListIsFull()
+        {
+            if (_size + 1 > _elements.Length)
+                return true;
+            return false;
+        }
+
+        private void AddNewPositionsToList()
+        {
+            Object[] newElements = new Object[_elements.Length + 10];
+
+            for (int i = 0; i < _size; i++)
+                newElements[i] = _elements[i];
+
+            _elements = newElements;
         }
 
         public object[] Elements()
