@@ -55,5 +55,10 @@ namespace RefactoringToPatterns.CreationMethods
         {
             return new ProductPackage("100MB", 91233788);
         }
+
+        public static ProductPackage CreateInternetAndTv()
+        {
+            return new ProductPackage("100MB", new[] {"LaLiga", "Estrenos"});
+        }
     }
 }
