@@ -1,3 +1,5 @@
+using System.Reflection.Emit;
+
 namespace RefactoringToPatterns.CreationMethods
 {
     public class ProductPackage
@@ -5,29 +7,14 @@ namespace RefactoringToPatterns.CreationMethods
         private readonly string _internetLabel;
         private readonly int? _telephoneNumber;
         private readonly string[] _tvChannels;
+        private readonly int? _cellNumber;
 
-        private ProductPackage(string internetLabel)
-        {
-            _internetLabel = internetLabel;
-        }
-
-        private ProductPackage(string internetLabel, int telephoneNumber)
-        {
-            _internetLabel = internetLabel;
-            _telephoneNumber = telephoneNumber;
-        }
-
-        private ProductPackage(string internetLabel, string[] tvChannels)
-        {
-            _internetLabel = internetLabel;
-            _tvChannels = tvChannels;
-        }
-
-        private ProductPackage(string internetLabel, int telephoneNumber, string[] tvChannels)
+        private ProductPackage(string internetLabel, int? telephoneNumber, string[] tvChannels, int? cellNumber)
         {
             _internetLabel = internetLabel;
             _telephoneNumber = telephoneNumber;
             _tvChannels = tvChannels;
+            _cellNumber = cellNumber;
         }
 
         public bool HasInternet()
@@ -46,24 +33,34 @@ namespace RefactoringToPatterns.CreationMethods
             return _tvChannels != null;
         }
 
-        public static ProductPackage CreateInternet()
+        public bool HasCellNumber()
         {
-            return new ProductPackage("100MB");
+            return _cellNumber != null;
         }
 
-        public static ProductPackage CreateInternetAndVoip()
+        public static ProductPackage CreateInternet(string internetLabel)
         {
-            return new ProductPackage("100MB", 91233788);
+            return new ProductPackage(internetLabel, null, null, null);
         }
 
-        public static ProductPackage CreateInternetAndTv()
+        public static ProductPackage CreateInternetAndVoip(string internetLabel, int telephoneNumber)
         {
-            return new ProductPackage("100MB", new[] {"LaLiga", "Estrenos"});
+            return new ProductPackage(internetLabel, telephoneNumber, null, null);
         }
 
-        public static ProductPackage CreateInternetAndVoipAndTv()
+        public static ProductPackage CreateInternetAndTv(string internetLabel, string[] tvChannels)
         {
-            return new ProductPackage("100MB", 91233788, new[] {"LaLiga", "Estrenos"});
+            return new ProductPackage(internetLabel, null, tvChannels, null);
+        }
+
+        public static ProductPackage CreateInternetAndVoipAndTv(string internetLabel, int telephoneNumber, string[] tvChannels)
+        {
+            return new ProductPackage(internetLabel, telephoneNumber, tvChannels, null);
+        }
+
+        public static ProductPackage CreateInternetAndCellNumber(string internetLabel, int cellNumber)
+        {
+            return new ProductPackage(internetLabel, null, null, cellNumber);
         }
     }
 }
