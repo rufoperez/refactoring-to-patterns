@@ -6,12 +6,12 @@ namespace RefactoringToPatterns.CreationMethods
         private readonly int? _telephoneNumber;
         private readonly string[] _tvChannels;
 
-        public ProductPackage(string internetLabel)
+        private ProductPackage(string internetLabel)
         {
             _internetLabel = internetLabel;
         }
 
-        public ProductPackage(string internetLabel, int telephoneNumber)
+        private ProductPackage(string internetLabel, int telephoneNumber)
         {
             _internetLabel = internetLabel;
             _telephoneNumber = telephoneNumber;
@@ -46,9 +46,14 @@ namespace RefactoringToPatterns.CreationMethods
             return _tvChannels != null;
         }
 
-        public static ProductPackage CreateInternetPackage()
+        public static ProductPackage CreateInternet()
         {
             return new ProductPackage("100MB");
+        }
+
+        public static ProductPackage CreateInternetAndVoip()
+        {
+            return new ProductPackage("100MB", 91233788);
         }
     }
 }
