@@ -67,5 +67,10 @@ namespace RefactoringToPatterns.CreationMethods
         {
             return new ProductPackage(internetLabel, null, tvChannels, cellNumber);
         }
+
+        public static ProductPackage CreateInternetAndVoipAndCellNumberAndTv(string internetLabel, int telephoneNumber, string[] tvChannels, int cellNumber)
+        {
+            return new ProductPackage(internetLabel, telephoneNumber, tvChannels, cellNumber);
+        }
     }
 }
