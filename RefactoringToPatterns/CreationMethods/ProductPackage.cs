@@ -45,5 +45,10 @@ namespace RefactoringToPatterns.CreationMethods
         {
             return _tvChannels != null;
         }
+
+        public static ProductPackage CreateInternetPackage()
+        {
+            return new ProductPackage("100MB");
+        }
     }
 }
