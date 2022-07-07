@@ -58,5 +58,16 @@ namespace RefactoringToPatterns.CreationMethods.Tests
             Assert.False(productPackage.HasTv());
             Assert.True(productPackage.HasCellNumber());
         }
+
+        [Fact]
+        public void CreateWithInternetAndCellAndTv()
+        {
+            var productPackage = ProductPackage.CreateInternetAndCellNumberAndTv("100MB", 61233788, new[] { "LaLiga", "Estrenos" });
+
+            Assert.True(productPackage.HasInternet());
+            Assert.False(productPackage.HasVOIP());
+            Assert.True(productPackage.HasTv());
+            Assert.True(productPackage.HasCellNumber());
+        }
     }
 }
