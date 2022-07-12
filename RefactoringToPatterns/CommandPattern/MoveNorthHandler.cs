@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace RefactoringToPatterns.CommandPattern
 {
-    public class MoveNorthHandler
+    public class MoveNorthHandler : IMoveHandler
     {
         private MarsRover _marsRover;
 
