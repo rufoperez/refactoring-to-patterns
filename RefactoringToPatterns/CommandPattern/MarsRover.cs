@@ -33,24 +33,16 @@ namespace RefactoringToPatterns.CommandPattern
                     switch (_direction)
                     {
                         case 'E':
-                            _obstacleFound = _obstacles.Contains($"{_x + 1}:{_y}");
-                            // check if rover reached plateau limit or found an obstacle
-                            _x = _x < 9 && !_obstacleFound ? _x += 1 : _x;
+                            MoveEast();
                             break;
                         case 'S':
-                            _obstacleFound = _obstacles.Contains($"{_x}:{_y + 1}");
-                            // check if rover reached plateau limit or found an obstacle
-                            _y = _y < 9 && !_obstacleFound ? _y += 1 : _y;
+                            MoveSouth();
                             break;
                         case 'W':
-                            _obstacleFound = _obstacles.Contains($"{_x - 1}:{_y}");
-                            // check if rover reached plateau limit or found an obstacle
-                            _x = _x > 0 && !_obstacleFound ? _x -= 1 : _x;
+                            MoveWest();
                             break;
                         case 'N':
-                            _obstacleFound = _obstacles.Contains($"{_x}:{_y - 1}");
-                            // check if rover reached plateau limit or found an obstacle
-                            _y = _y > 0 && !_obstacleFound ? _y -= 1 : _y;
+                            MoveNorth();
                             break;
                     }
                 }
@@ -80,6 +72,34 @@ namespace RefactoringToPatterns.CommandPattern
                     }
                 }
             }
+        }
+
+        private void MoveNorth()
+        {
+            _obstacleFound = _obstacles.Contains($"{_x}:{_y - 1}");
+            // check if rover reached plateau limit or found an obstacle
+            _y = _y > 0 && !_obstacleFound ? _y -= 1 : _y;
+        }
+
+        private void MoveWest()
+        {
+            _obstacleFound = _obstacles.Contains($"{_x - 1}:{_y}");
+            // check if rover reached plateau limit or found an obstacle
+            _x = _x > 0 && !_obstacleFound ? _x -= 1 : _x;
+        }
+
+        private void MoveSouth()
+        {
+            _obstacleFound = _obstacles.Contains($"{_x}:{_y + 1}");
+            // check if rover reached plateau limit or found an obstacle
+            _y = _y < 9 && !_obstacleFound ? _y += 1 : _y;
+        }
+
+        private void MoveEast()
+        {
+            _obstacleFound = _obstacles.Contains($"{_x + 1}:{_y}");
+            // check if rover reached plateau limit or found an obstacle
+            _x = _x < 9 && !_obstacleFound ? _x += 1 : _x;
         }
     }
 }
