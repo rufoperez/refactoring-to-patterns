@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RefactoringToPatterns.CommandPattern
 {
     public class MarsRover
@@ -12,6 +14,7 @@ namespace RefactoringToPatterns.CommandPattern
         private readonly MoveWestHandler _moveWestHandler;
         private readonly MoveSouthHandler _moveSouthHandler;
         private readonly MoveEastHandler _moveEastHandler;
+        private readonly Dictionary<char, IMoveHandler> _movements = new Dictionary<char, IMoveHandler>();
 
         public MarsRover(int x, int y, char direction, string[] obstacles)
         {
@@ -23,6 +26,11 @@ namespace RefactoringToPatterns.CommandPattern
             _moveWestHandler = new MoveWestHandler(this);
             _moveSouthHandler = new MoveSouthHandler(this);
             _moveEastHandler = new MoveEastHandler(this);
+            _movements.Add('E', _moveEastHandler);
+            _movements.Add('W', _moveWestHandler);
+            _movements.Add('N', _moveNorthHandler);
+            _movements.Add('S', _moveSouthHandler);
+
         }
         
         public string GetState()
@@ -36,21 +44,8 @@ namespace RefactoringToPatterns.CommandPattern
             {
                 if (command == 'M')
                 {
-                    switch (_direction)
-                    {
-                        case 'E':
-                            _moveEastHandler.Move();
-                            break;
-                        case 'S':
-                            _moveSouthHandler.Move();
-                            break;
-                        case 'W':
-                            _moveWestHandler.Move();
-                            break;
-                        case 'N':
-                            _moveNorthHandler.Move();
-                            break;
-                    }
+                    IMoveHandler moveHandler = _movements[_direction];
+                    moveHandler.Move();
                 }
                 else if(command == 'L')
                 {
