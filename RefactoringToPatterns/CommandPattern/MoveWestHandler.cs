@@ -11,7 +11,7 @@ namespace RefactoringToPatterns.CommandPattern
             _marsRover = marsRover;
         }
 
-        public void MoveWest()
+        public void Move()
         {
             _marsRover._obstacleFound = _marsRover._obstacles.Contains($"{_marsRover._x - 1}:{_marsRover._y}");
             // check if rover reached plateau limit or found an obstacle
